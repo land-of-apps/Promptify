@@ -35,7 +35,7 @@ jobs:
           verbose: true
 
       - name: Run tests
-        run: python3 -m pytest tests/unit_tests/prompter/test_prompter.py
+        run: python3 -m pytest --cache-clear tests/unit_tests/prompter/test_prompter.py
         env:
           OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
 
