@@ -1,4 +1,5 @@
 import pytest
+import os
 from promptify import OpenAI
 from typing import List, Dict
 from promptify import Parser
