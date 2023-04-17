@@ -1,0 +1,46 @@
+name: Archive AppMaps on PR merge
+
+on:
+  pull_request:
+    types:
+      - closed
+ 
+env:
+  APPMAP_TELEMETRY_DISABLED: 'true'
+
+jobs:
+  appmap_archive_main:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r requirements.txt -r requirements-dev.txt
+
+      - name: Install and configure AppMap
+        uses: getappmap/install-appmap-action@v1-pre.8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          project-type: pip
+          build-file: requirements-dev.txt
+          verbose: true
+
+      - name: Run prompter test
+        run: python3 -m pytest tests/unit_tests/prompter/test_prompter.py
+        env:
+          OPENAI_KEY: ${{ secrets.OPENAI_KEY }}
+
+      - name: Archive AppMaps
+        uses: getappmap/archive-appmap-action@v1-pre.10
+        with:
+          revision: ${{ github.event.pull_request.head.sha }}
+          verbose: true
