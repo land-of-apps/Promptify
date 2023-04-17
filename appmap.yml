@@ -1,0 +1,8 @@
+appmap_dir: tmp/appmap
+language: python
+name: Promptify
+packages:
+  - path: examples
+  - path: tests
+  - path: promptify
+  - path: benchmarks
