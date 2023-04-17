@@ -12,21 +12,20 @@ class TestPrompter:
         model = OpenAI(api_key=api_key, api_wait=1, api_retry=1)
         return model
 
-    def test_custom_template(self, model):
-
-        # replace the template path with own path, this is just for testing
-        prompter = Prompter(
-            model=model, template="/Users/stoicbatman/Desktop/pytest_project/ner.jinja"
-        )
-        output = prompter.fit(
-            "Elon Reeve Musk FRS is a business. He is the founder of SpaceX; Tesla, Inc.; Twitter, Inc.; Neuralink and OpenAI",
-            domain="general",
-            labels=None,
-        )
-        assert isinstance(output, list)
-        assert isinstance(output[0]["parsed"], Dict)
-        assert isinstance(output[0]["parsed"]["data"]["completion"][0]["T"], str)
-        assert isinstance(output[0]["parsed"]["data"]["completion"][0]["E"], str)
+    # def test_custom_template(self, model):
+    #     # replace the template path with own path, this is just for testing
+    #     prompter = Prompter(
+    #         model=model, template="/Users/stoicbatman/Desktop/pytest_project/ner.jinja"
+    #     )
+    #     output = prompter.fit(
+    #         "Elon Reeve Musk FRS is a business. He is the founder of SpaceX; Tesla, Inc.; Twitter, Inc.; Neuralink and OpenAI",
+    #         domain="general",
+    #         labels=None,
+    #     )
+    #     assert isinstance(output, list)
+    #     assert isinstance(output[0]["parsed"], Dict)
+    #     assert isinstance(output[0]["parsed"]["data"]["completion"][0]["T"], str)
+    #     assert isinstance(output[0]["parsed"]["data"]["completion"][0]["E"], str)
 
     def test_generate_prompt(self, model):
         prompter = Prompter(model=model, template="ner.jinja")
