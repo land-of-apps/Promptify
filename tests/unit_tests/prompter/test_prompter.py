@@ -8,7 +8,8 @@ import os
 class TestPrompter:
     @pytest.fixture
     def model(self):
-        model = OpenAI(api_key="", api_wait=1, api_retry=1)
+        api_key = os.environ.get("OPENAI_KEY")
+        model = OpenAI(api_key=api_key, api_wait=1, api_retry=1)
         return model
 
     def test_custom_template(self, model):

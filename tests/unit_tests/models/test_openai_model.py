@@ -5,7 +5,8 @@ from promptify import Parser
 
 @pytest.fixture
 def openai_complete():
-    openai_complete = OpenAI(api_key="", api_wait=5, api_retry=5)
+    api_key = os.environ.get("OPENAI_KEY")
+    openai_complete = OpenAI(api_key=api_key, api_wait=5, api_retry=5)
     return openai_complete
 
 
