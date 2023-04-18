@@ -1,9 +1,9 @@
+import appmap.http
 import pytest
 from promptify import Prompter
 from promptify import OpenAI
 from typing import List, Optional, Union, Dict
 import os
-
 
 class TestPrompter:
     @pytest.fixture
